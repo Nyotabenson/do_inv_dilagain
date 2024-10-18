@@ -65,7 +65,7 @@ def display_inbound_data():
         df_inbound = pd.DataFrame(data)
         # Assuming the 'inbound' table has these columns: id, item_name, quantity, date_received
         
-        st.table(df_inbound.tail(3))
+        st.dataframe(df_inbound.tail(3))
     else:
         st.write("No data available or unable to fetch data.")
 
@@ -108,6 +108,6 @@ def display_outbound_data():
         df_outbound = pd.DataFrame(data)
         # Assuming the 'inbound' table has these columns: id, item_name, quantity, date_received
         
-        st.table(df_outbound.tail(3))
+        st.dataframe(df_outbound.tail(3))
     else:
         st.write("No data available or unable to fetch data.")

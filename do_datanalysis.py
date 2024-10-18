@@ -77,8 +77,7 @@ def fetch_balance_data():
 def display_balance_data():
     data = fetch_balance_data()
     if data:
-        df_balance = pd.DataFrame(data)
-        df_balance.to_csv("do_pm_balance.csv", index=False)
+        return pd.DataFrame(data)
         
     else:
         st.write("No data available or unable to fetch data.")
