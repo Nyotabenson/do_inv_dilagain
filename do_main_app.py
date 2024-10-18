@@ -35,12 +35,12 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #e52020;
+        background-color: red;
     }
     </style>
     """,
     unsafe_allow_html=True
-)
+    )
 ###############TITLE####################
 st.image("Images/header.png", use_column_width=True)
 
