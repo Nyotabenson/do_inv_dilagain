@@ -31,13 +31,12 @@ def connect_to_db():
         st.error(f"Error connecting to database: {e}")
         return None
 
-def apply_custom_css():
-    with open("style.css") as f:
+def load_css(file_name):
+    with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Applying the custom CSS
-apply_custom_css()
-
+# Load and apply the CSS file
+load_css("style.css")
 
 #######TITLE####################
 st.image("Images/header.png", use_column_width=True)
