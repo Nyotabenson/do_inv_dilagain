@@ -68,7 +68,7 @@ st.write("##")
 st.image("Images/balance.png", use_column_width=True)
 st.subheader("Available Packaging Materials:")
 do_pm_balance = pd.read_csv("do_pm_balance.csv")
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 with col1:    
     
     st.markdown(f"(i)  :blue[**G Printers**] :  {do_pm_balance['b_g_printers'].values}")
@@ -79,7 +79,7 @@ with col1:
 
 
 
-with col3:
+with col2:
     st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
     st.markdown(f"(vii)  :red[**Cartons Large-size**] :  {do_pm_balance['b_carton_boxes_large'].values}")
     st.markdown(f"(viii) :violet[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
