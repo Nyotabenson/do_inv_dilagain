@@ -77,8 +77,7 @@ with col1:
     st.markdown(f"(v)  :red[**Cartons Small-size**] :  {do_pm_balance['b_carton_boxes_small'].values}")
     
 
-with col2:
-    st.image("Images/centre.png")
+
 
 with col3:
     st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
