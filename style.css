@@ -1,3 +1,7 @@
 .stApp {
-    background-color: red;
+    background:linear-gradient(90deg, #004aad, #cb6ce6);
+}
+
+.css-1d391kg {
+    background-color: #38b6ff; /* Blue background for the sidebar */
 }

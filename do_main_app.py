@@ -30,7 +30,11 @@ def connect_to_db():
     except Exception as e:
         st.error(f"Error connecting to database: {e}")
         return None
+    
+#setting
+st.set_page_config(layout="wide")
 
+# style css
 def load_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -39,7 +43,7 @@ def load_css(file_name):
 load_css("style.css")
 
 #######TITLE####################
-st.image("Images/header.png", use_column_width=True)
+st.image("photos/header.png", use_column_width=True)
 
 ####################### DATA ENTRY ###################
 
@@ -53,31 +57,33 @@ do_dataentry.ounbound_entry()
 
 
 ######### Display the inbound & outbound ##############
-st.image("Images/outbound.png", use_column_width=True)
+st.image("photos/outbound.png", use_column_width=True)
 do_datafetch.display_outbound_data()
 
-st.image("Images/inbound.png", use_column_width=True)
+st.image("photos/inbound.png", use_column_width=True)
 do_datafetch.display_inbound_data()
 
  
 # Display the remaining materials
 st.write("##")
-st.image("Images/balance.png", use_column_width=True)
+st.image("photos/balance.png", use_column_width=True)
 st.subheader("Available Packaging Materials:")
 do_pm_balance = pd.read_csv("do_pm_balance.csv")
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:    
-    
+    st.write("##")
     st.markdown(f"(i)  :blue[**G Printers**] :  {do_pm_balance['b_g_printers'].values}")
     st.markdown(f"(i)  :blue[**ClearTapes**] :  {do_pm_balance['b_clear_tapes'].values}")
     st.markdown(f"(ii)  :blue[**BrandedTapes**] :  {do_pm_balance['b_branded_tapes'].values}")
     st.markdown(f"(v)  :red[**Cartons Small-size**] :  {do_pm_balance['b_carton_boxes_small'].values}")
     st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
 
-
-
 with col2:
-    
+    st.image("photos/centre.png", use_column_width=True)
+
+
+with col3:
+    st.write("##")
     st.markdown(f"(vii)  :red[**Cartons Large-size**] :  {do_pm_balance['b_carton_boxes_large'].values}")
     st.markdown(f"(viii) :violet[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
     st.markdown(f"(ix) :green[**Plastic Bags Medium-size**] :  {do_pm_balance['b_plastic_bags_medium'].values}")
@@ -85,5 +91,5 @@ with col2:
     st.markdown(f"(xi)  :violet[**50KGS Sucks**] :  {do_pm_balance['b_kg_50_suck'].values}")
 
 st.write("##")    
-st.image("Images/footer.png", use_column_width=True)
+st.image("photos/footer.png", use_column_width=True)
 
