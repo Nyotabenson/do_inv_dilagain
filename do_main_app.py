@@ -66,10 +66,11 @@ do_datafetch.display_inbound_data()
 # Display the remaining materials
 st.write("##")
 st.image("Images/balance.png", use_column_width=True)
+st.subheader("Available Packaging Materials:")
 do_pm_balance = pd.read_csv("do_pm_balance.csv")
 col1, col2, col3 = st.columns(3)
 with col1:    
-    st.subheader("Available Packaging Materials:")
+    
     st.markdown(f"(i)  :blue[**G Printers**] :  {do_pm_balance['b_g_printers'].values}")
     st.markdown(f"(i)  :blue[**ClearTapes**] :  {do_pm_balance['b_clear_tapes'].values}")
     st.markdown(f"(ii)  :blue[**BrandedTapes**] :  {do_pm_balance['b_branded_tapes'].values}")
