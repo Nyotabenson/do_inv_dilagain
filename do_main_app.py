@@ -75,12 +75,12 @@ with col1:
     st.markdown(f"(i)  :blue[**ClearTapes**] :  {do_pm_balance['b_clear_tapes'].values}")
     st.markdown(f"(ii)  :blue[**BrandedTapes**] :  {do_pm_balance['b_branded_tapes'].values}")
     st.markdown(f"(v)  :red[**Cartons Small-size**] :  {do_pm_balance['b_carton_boxes_small'].values}")
-    
+    st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
 
 
 
 with col2:
-    st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
+    
     st.markdown(f"(vii)  :red[**Cartons Large-size**] :  {do_pm_balance['b_carton_boxes_large'].values}")
     st.markdown(f"(viii) :violet[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
     st.markdown(f"(ix) :green[**Plastic Bags Medium-size**] :  {do_pm_balance['b_plastic_bags_medium'].values}")
