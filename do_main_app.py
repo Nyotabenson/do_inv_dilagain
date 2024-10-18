@@ -31,17 +31,15 @@ def connect_to_db():
         st.error(f"Error connecting to database: {e}")
         return None
 
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: red;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
-###############TITLE####################
+def apply_custom_css():
+    with open("style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Applying the custom CSS
+apply_custom_css()
+
+
+#######TITLE####################
 st.image("Images/header.png", use_column_width=True)
 
 ####################### DATA ENTRY ###################
