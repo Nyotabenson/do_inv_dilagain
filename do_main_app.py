@@ -7,6 +7,7 @@ import pandas as pd
 import do_datafetch
 import do_dataentry
 import do_datanalysis
+import do_visualization
 
 
 
@@ -45,6 +46,7 @@ load_css("style.css")
 #######TITLE####################
 st.image("photos/header.png", use_column_width=True)
 
+st.write("---")
 ####################### DATA ENTRY ###################
 
 
@@ -54,6 +56,21 @@ do_dataentry.inbound_entry()
 
 do_dataentry.ounbound_entry()
 
+# Data Visualization
+v_col1, v_col2 = st.columns(2)
+try:
+    with v_col1:
+        do_visualization.pie_visual()
+except:
+    st.write("Visual not ready!!")    
+
+
+try:
+    
+    with v_col2:
+        do_visualization.daily_orders()
+except:
+    st.write("Visual Not Ready")
 
 
 ######### Display the inbound & outbound ##############
@@ -75,7 +92,7 @@ st.dataframe(do_pm_balance)
 col1, col2, col3 = st.columns(3)
 with col1:    
     
-    
+    st.write("##")
     st.markdown(f"(i)  :blue[**G Printers**] :  {do_pm_balance['b_g_printers'].values}")
     st.markdown(f"(i)  :blue[**ClearTapes**] :  {do_pm_balance['b_clear_tapes'].values}")
     st.write("##")
@@ -89,7 +106,7 @@ with col2:
 
 with col3:
     
-    
+    st.write("##")
     st.markdown(f"(vii)  :red[**Cartons Large-size**] :  {do_pm_balance['b_carton_boxes_large'].values}")
     st.markdown(f"(viii) :blue[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
     st.write("##")

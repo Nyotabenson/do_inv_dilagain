@@ -80,3 +80,83 @@ def display_balance_data():
         
     else:
         st.write("No data available or unable to fetch data.")
+
+
+def fetch_total_quantities():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                            SELECT 
+                                (SUM(g_printers) + SUM(clear_tapes) + SUM(branded_tapes) + SUM(plastic_bags_small)
+                                + SUM(carton_boxes_small) + SUM(carton_boxes_medium) + SUM(carton_boxes_large) + SUM(plastic_bags_medium) 
+                                + SUM(kg_90_suck)+ SUM(kg_50_suck) ) AS Materials,
+                                sum(Orders) AS Orders
+                            FROM do_outbound
+                            WHERE MONTH(outdate) = MONTH(CURDATE())
+                            AND YEAR(outdate) = YEAR(CURDATE());
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+
+                column_names = [desc[0] for desc in cursor.description]
+
+                # Combine column names with the data
+                data_with_columns = [dict(zip(column_names, row)) for row in result]
+                                
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return pd.DataFrame(data_with_columns)
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
+
+
+#fetching data date and orders processed
+def daily_orders():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                          SELECT 
+                                    outdate, Orders
+                                FROM
+                                    do_outbound
+                                WHERE
+                                    MONTH(outdate) = MONTH(CURDATE())
+                                        AND YEAR(outdate) = YEAR(CURDATE());
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+
+                column_names = [desc[0] for desc in cursor.description]
+
+                # Combine column names with the data
+                data_with_columns = [dict(zip(column_names, row)) for row in result]
+                                
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return pd.DataFrame(data_with_columns)
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
