@@ -75,8 +75,10 @@ st.dataframe(do_pm_balance)
 col1, col2, col3 = st.columns(3)
 with col1:    
     
+    
     st.markdown(f"(i)  :blue[**G Printers**] :  {do_pm_balance['b_g_printers'].values}")
     st.markdown(f"(i)  :blue[**ClearTapes**] :  {do_pm_balance['b_clear_tapes'].values}")
+    st.write("##")
     st.markdown(f"(ii)  :blue[**BrandedTapes**] :  {do_pm_balance['b_branded_tapes'].values}")
     st.markdown(f"(v)  :red[**Cartons Small-size**] :  {do_pm_balance['b_carton_boxes_small'].values}")
     st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
@@ -87,12 +89,19 @@ with col2:
 
 with col3:
     
+    
     st.markdown(f"(vii)  :red[**Cartons Large-size**] :  {do_pm_balance['b_carton_boxes_large'].values}")
-    st.markdown(f"(viii) :violet[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
+    st.markdown(f"(viii) :blue[**Plastic Bags Small-size**] :  {do_pm_balance['b_plastic_bags_small'].values}")
+    st.write("##")
     st.markdown(f"(ix) :green[**Plastic Bags Medium-size**] :  {do_pm_balance['b_plastic_bags_medium'].values}")
-    st.markdown(f"(x) :violet[**90KGS Sucks**] :  {do_pm_balance['b_kg_90_suck'].values}")
-    st.markdown(f"(xi)  :violet[**50KGS Sucks**] :  {do_pm_balance['b_kg_50_suck'].values}")
+    st.markdown(f"(x) :blue[**90KGS Sucks**] :  {do_pm_balance['b_kg_90_suck'].values}")
+    st.markdown(f"(xi)  :blue[**50KGS Sucks**] :  {do_pm_balance['b_kg_50_suck'].values}")
 
-st.write("##")    
+if st.checkbox("JSON File:"):
+    st.write(do_datanalysis.fetch_balance_data())
+
+
+# st.write("##")    
 st.image("photos/footer.png", use_column_width=True)
+
 

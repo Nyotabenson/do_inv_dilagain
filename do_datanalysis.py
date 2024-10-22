@@ -37,19 +37,18 @@ def fetch_balance_data():
             with connection.cursor() as cursor:
                 # SQL query to select all data from the "inbound" table
                 query = """
-                               SELECT
-                                    sum(i.g_printers) - sum(o.g_printers)  as b_g_printers,
-                                    sum(i.clear_tapes) - sum(o.clear_tapes)  as b_clear_tapes,
-                                    sum(i.branded_tapes) - sum(o.branded_tapes)  as b_branded_tapes,
-                                    sum(i.plastic_bags_small) - sum(o.plastic_bags_small)  as b_plastic_bags_small,
-                                    sum(i.carton_boxes_small) - sum(o.carton_boxes_small)  as b_carton_boxes_small,
-                                    sum(i.carton_boxes_medium) - sum(o.carton_boxes_medium)  as b_carton_boxes_medium,
-                                    sum(i.carton_boxes_large) - sum(o.carton_boxes_large)  as b_carton_boxes_large,
-                                    sum(i.plastic_bags_medium) - sum(o.plastic_bags_medium)  as b_plastic_bags_medium,
-                                    sum(i.kg_90_suck) - sum(o.kg_90_suck)  as b_kg_90_suck,
-                                    sum(i.kg_50_suck) - sum(o.kg_50_suck)  as b_kg_50_suck
+              SELECT
+                                    sum(i.g_printers) - (select sum(o.g_printers) from do_outbound o)  as b_g_printers,
+                                    sum(i.clear_tapes) - (select sum(o.clear_tapes) from do_outbound o)  as b_clear_tapes,
+                                    sum(i.branded_tapes) - (select sum(o.branded_tapes) from do_outbound o)  as b_branded_tapes,
+                                    sum(i.plastic_bags_small) - (select sum(o.plastic_bags_small) from do_outbound o)  as b_plastic_bags_small,
+                                    sum(i.carton_boxes_small) - (select sum(o.carton_boxes_small) from do_outbound o)  as b_carton_boxes_small,
+                                    sum(i.carton_boxes_medium) - (select sum(o.carton_boxes_medium) from do_outbound o)  as b_carton_boxes_medium,
+                                    sum(i.carton_boxes_large) - (select sum(o.carton_boxes_large) from do_outbound o)  as b_carton_boxes_large,
+                                    sum(i.plastic_bags_medium) - (select sum(o.plastic_bags_medium) from do_outbound o)  as b_plastic_bags_medium,
+                                    sum(i.kg_90_suck) - (select sum(o.kg_90_suck) from do_outbound o)  as b_kg_90_suck,
+                                    sum(i.kg_50_suck) - (select sum(o.kg_50_suck) from do_outbound o)  as b_kg_50_suck
                                     FROM 
-                                        do_outbound o,
                                         do_inbound i;
                                                      """
                 cursor.execute(query)
