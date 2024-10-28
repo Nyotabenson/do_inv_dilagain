@@ -78,6 +78,26 @@ def save_outbound_data(out_entry):
         finally:
             connection.close()
 
+# Saving the sales
+
+def save_daily_sale(sale):
+    connection = connect_to_db()
+    if connection:
+        try:
+            with connection.cursor() as cursor:
+                sql = """
+                INSERT INTO sale_table (DATE, daily_sale, Orders)
+                VALUES (%s, %s, %s)
+                """
+                cursor.execute(sql, (
+                    sale['DATE'], sale["daily_sale"], sale['Orders']
+                ))
+                connection.commit()
+        except Exception as e:
+            st.error(f"Error saving outbound data: {e}")
+        finally:
+            connection.close()
+
 
 ########################## Sidebar data entry ######################
 def inbound_entry():
@@ -104,6 +124,7 @@ def inbound_entry():
                     "Carton Boxes (Large)": in_CTN_L, "Plastic Bags (Medium)": in_PB_M, "90KGS Suck": in_KG90,
                     "50KGS Suck": in_KG50
                 }
+                
                 save_inbound_data(in_entry)
 
 
@@ -129,10 +150,19 @@ def ounbound_entry():
             ODRS = st.number_input("Orders", min_value=0, step=1, key='odrs')
             submitted2 = st.form_submit_button("Save Outbound")
             # Example for saving outbound data
+
+            #price calculation:
+            
+
             if submitted2:
+                tt_amount = (CT*99)+(BT*220)+(PB_S*6)+(CTN_S*20)+(CTN_M*40)+(CTN_L*72)+(PB_M*13)+(PB_L*33)+(KG50*25)
+                price = {
+                    'DATE' : DT, 'daily_sale' : tt_amount, 'Orders':ODRS
+                     }
                 out_entry = {
                     'DATE': DT, "G Printers": GP, 'ClearTapes': CT, "BrandedTapes": BT, "Plastic Bags (Small)": PB_S, 
                     "Carton Boxes (Small)": CTN_S, "Carton Boxes (Medium)": CTN_M, "Carton Boxes (Large)": CTN_L,
                     "Plastic Bags (Medium)": PB_M, "90KGS Suck": PB_L, "50KGS Suck": KG50, "Orders": ODRS
                 }
+                save_daily_sale(price)
                 save_outbound_data(out_entry)

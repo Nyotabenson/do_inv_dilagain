@@ -111,3 +111,38 @@ def display_outbound_data():
         st.dataframe(df_outbound.tail(3))
     else:
         st.write("No data available or unable to fetch data.")
+
+
+def sales_data():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = ''' SELECT 
+                                *
+                            FROM
+                                sale_table
+                                WHERE
+                                MONTH(DATE) = MONTH(CURDATE())
+                                    AND YEAR(DATE) = YEAR(CURDATE());'''
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+
+                column_names = [desc[0] for desc in cursor.description]
+
+                # Combine column names with the data
+                data_with_columns = [dict(zip(column_names, row)) for row in result]
+                                
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return pd.DataFrame(data_with_columns)
+        except Exception as e:
+            st.error(f"Error fetching data: {e}")
+            return None
+    else:
+        print("no connection")

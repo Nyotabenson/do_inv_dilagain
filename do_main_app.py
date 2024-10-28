@@ -114,8 +114,28 @@ with col3:
     st.markdown(f"(x) :blue[**90KGS Sucks**] :  {do_pm_balance['b_kg_90_suck'].values}")
     st.markdown(f"(xi)  :blue[**50KGS Sucks**] :  {do_pm_balance['b_kg_50_suck'].values}")
 
-if st.checkbox("JSON File:"):
-    st.write(do_datanalysis.fetch_balance_data())
+col11, col22, col33 = st.columns(3)
+with col11:
+    try:
+        if st.checkbox("Total Sales"):
+         passcode1 = st.text_input("Passcode")
+        if passcode1 == '114986bn':
+            st.write("Total Sales: ", do_datanalysis.Total_sales())
+
+        elif passcode1 != '114986bn':
+            st.markdown(":red[**Input Valid Passcode**]")
+    except:
+        print("Calculation not done!")
+
+with col22:
+    do_visualization.cost_profit_vis()
+
+try:
+    with st.expander("View Trend"):
+        do_visualization.daily_sale()
+except:
+    st.error("Sorry we could not fetch the Visual at the moment")        
+
 
 
 # st.write("##")    

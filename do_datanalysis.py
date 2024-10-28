@@ -160,3 +160,163 @@ def daily_orders():
             return None
     else:
         print("no connection")
+
+
+# Total Sale
+
+def Total_sales():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                           SELECT 
+                                                SUM(clear_tapes) * (SELECT 
+                                                        clear_tapes
+                                                    FROM
+                                                        selling_price) + SUM(branded_tapes) * (SELECT 
+                                                        branded_tapes
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_small) * (SELECT 
+                                                        plastic_bags_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_small) * (SELECT 
+                                                        carton_boxes_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_medium) * (SELECT 
+                                                        carton_boxes_medium
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_large) * (SELECT 
+                                                        carton_boxes_large
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_medium) * (SELECT 
+                                                        plastic_bags_medium
+                                                    FROM
+                                                        selling_price) + SUM(kg_90_suck) * (SELECT 
+                                                        kg_90_suck
+                                                    FROM
+                                                        selling_price) + SUM(kg_50_suck) * (SELECT 
+                                                        kg_50_suck
+                                                    FROM
+                                                        selling_price) AS total_sale
+                                            FROM
+                                                do_outbound
+                                                WHERE
+                                                    MONTH(outdate) = MONTH(CURDATE())
+                                                        AND YEAR(outdate) = YEAR(CURDATE());
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+       
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return int(result[0][0])
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
+
+
+# Total and Total profit
+def cost_profit():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                                                    SELECT 
+                            SUM(clear_tapes) * (SELECT 
+                                    clear_tapes
+                                FROM
+                                    buying_price) + SUM(branded_tapes) * (SELECT 
+                                    branded_tapes
+                                FROM
+                                    buying_price) + SUM(plastic_bags_small) * (SELECT 
+                                    plastic_bags_small
+                                FROM
+                                    buying_price) + SUM(carton_boxes_small) * (SELECT 
+                                    carton_boxes_small
+                                FROM
+                                    buying_price) + SUM(carton_boxes_medium) * (SELECT 
+                                    carton_boxes_medium
+                                FROM
+                                    buying_price) + SUM(carton_boxes_large) * (SELECT 
+                                    carton_boxes_large
+                                FROM
+                                    buying_price) + SUM(plastic_bags_medium) * (SELECT 
+                                    plastic_bags_medium
+                                FROM
+                                    buying_price) + SUM(kg_90_suck) * (SELECT 
+                                    kg_90_suck
+                                FROM
+                                    buying_price) + SUM(kg_50_suck) * (SELECT 
+                                    kg_50_suck
+                                FROM
+                                    buying_price) AS total_cost,
+                                    
+                                    SUM(clear_tapes) * (SELECT 
+                                    clear_tapes
+                                FROM
+                                    profit) + SUM(branded_tapes) * (SELECT 
+                                    branded_tapes
+                                FROM
+                                    profit) + SUM(plastic_bags_small) * (SELECT 
+                                    plastic_bags_small
+                                FROM
+                                    profit) + SUM(carton_boxes_small) * (SELECT 
+                                    carton_boxes_small
+                                FROM
+                                    profit) + SUM(carton_boxes_medium) * (SELECT 
+                                    carton_boxes_medium
+                                FROM
+                                    profit) + SUM(carton_boxes_large) * (SELECT 
+                                    carton_boxes_large
+                                FROM
+                                    profit) + SUM(plastic_bags_medium) * (SELECT 
+                                    plastic_bags_medium
+                                FROM
+                                    profit) + SUM(kg_90_suck) * (SELECT 
+                                    kg_90_suck
+                                FROM
+                                    profit) + SUM(kg_50_suck) * (SELECT 
+                                    kg_50_suck
+                                FROM
+                                    profit) AS total_profit
+                        FROM
+                            do_outbound
+                            WHERE
+                                MONTH(outdate) = MONTH(CURDATE())
+                                    AND YEAR(outdate) = YEAR(CURDATE());
+ 
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+
+                column_names = [desc[0] for desc in cursor.description]
+
+                # Combine column names with the data
+                data_with_columns = [dict(zip(column_names, row)) for row in result]
+                                
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return pd.DataFrame(data_with_columns)
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
