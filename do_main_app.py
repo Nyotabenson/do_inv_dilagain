@@ -45,7 +45,7 @@ load_css("style.css")
 
 #######TITLE####################
 st.image("photos/header.png", use_column_width=True)
-
+st.image("photos/about.png", use_column_width=True)
 st.write("---")
 ####################### DATA ENTRY ###################
 
