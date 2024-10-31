@@ -32,8 +32,8 @@ def pie_visual():
         plot_bgcolor="white",      
         showlegend=False,           
         title={
-            'text': "Inventory Usage Pie Chart",  
-            'y': 0.95,  
+            'text': "Inventory Usage",  
+            'y': 0.97,  
             'x': 0.5,  
             'xanchor': 'center',
             'yanchor': 'top',
@@ -64,7 +64,8 @@ def daily_orders():
         title_font_size=30,    
         xaxis=dict(
             tickformat='%Y-%m-%d',  
-            tickangle=-45  
+            tickangle=-45,
+            color = "black"
         ),
         title={
             'text': "Daily Order Processing",  
@@ -200,6 +201,7 @@ def daily_sale():
         },
         title_font_size=35,
         xaxis_title="Date",
+        xaxis = dict( color = "black"),
         yaxis=dict(title = "Values") ,# type="log"),
         barmode="group",
         bargap=0.2,
