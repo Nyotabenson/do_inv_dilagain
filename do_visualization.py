@@ -66,7 +66,7 @@ def daily_orders():
         xaxis=dict(
             tickformat='%Y-%m-%d',  
             tickangle=-45,
-            color = 'black'
+            color = '#e52020'
         ),
         title={
             'text': "Daily Order Processing",  
