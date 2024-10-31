@@ -67,6 +67,7 @@ def daily_orders():
             tickformat='%Y-%m-%d',  
             tickangle=-45,
             title_font=dict(color='#e52020'),
+            tickfont=dict(color='#e52020') 
         ),
         title={
             'text': "Daily Order Processing",  
