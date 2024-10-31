@@ -62,12 +62,14 @@ def daily_orders():
         plot_bgcolor='rgba(0,0,0,0)',  
         paper_bgcolor='rgba(0,0,0,0)',  
         title_font_size=30,
-        yaxis = dict(color='black'),
+        yaxis = dict(title_font=dict(color='#ffffff'),
+            tickfont=dict(color='#ffffff')
+                    ),
         xaxis=dict(
             tickformat='%Y-%m-%d',  
             tickangle=-45,
-            title_font=dict(color='#e52020'),
-            tickfont=dict(color='#e52020') 
+            title_font=dict(color='#ffffff'),
+            tickfont=dict(color='#ffffff') 
         ),
         title={
             'text': "Daily Order Processing",  
@@ -203,8 +205,13 @@ def daily_sale():
         },
         title_font_size=35,
         xaxis_title="Date",
-        xaxis = dict( color = "black"),
-        yaxis=dict(title = "Values", type="log", color='black'),
+        xaxis = dict( title_font=dict(color='#ffffff'),
+            tickfont=dict(color='#ffffff')
+                    ),
+        yaxis=dict(title = "Values", type="log", color='black',
+                  title_font=dict(color='#ffffff'),
+            tickfont=dict(color='#ffffff')
+                  ),
         barmode="group",
         bargap=0.2,
         paper_bgcolor="rgba(0,0,0,0)",
