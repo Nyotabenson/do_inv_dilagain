@@ -56,6 +56,9 @@ do_dataentry.inbound_entry()
 
 do_dataentry.ounbound_entry()
 
+#sidebar images
+st.sidebar.image("photos/side1.png", use_column_width=True)
+st.sidebar.image("photos/side2.png", use_column_width=True)
 # Data Visualization
 v_col1, v_col2 = st.columns(2)
 try:
