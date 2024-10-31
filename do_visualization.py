@@ -202,7 +202,7 @@ def daily_sale():
         title_font_size=35,
         xaxis_title="Date",
         xaxis = dict( color = "black"),
-        yaxis=dict(title = "Values") ,# type="log"),
+        yaxis=dict(title = "Values", type="log"),
         barmode="group",
         bargap=0.2,
         paper_bgcolor="rgba(0,0,0,0)",
