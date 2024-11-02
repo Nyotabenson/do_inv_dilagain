@@ -225,6 +225,68 @@ def Total_sales():
         print("no connection")
 
 
+def last_Month_Total_sales():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                           SELECT 
+                                                SUM(clear_tapes) * (SELECT 
+                                                        clear_tapes
+                                                    FROM
+                                                        selling_price) + SUM(branded_tapes) * (SELECT 
+                                                        branded_tapes
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_small) * (SELECT 
+                                                        plastic_bags_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_small) * (SELECT 
+                                                        carton_boxes_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_medium) * (SELECT 
+                                                        carton_boxes_medium
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_large) * (SELECT 
+                                                        carton_boxes_large
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_medium) * (SELECT 
+                                                        plastic_bags_medium
+                                                    FROM
+                                                        selling_price) + SUM(kg_90_suck) * (SELECT 
+                                                        kg_90_suck
+                                                    FROM
+                                                        selling_price) + SUM(kg_50_suck) * (SELECT 
+                                                        kg_50_suck
+                                                    FROM
+                                                        selling_price) AS total_sale
+                                            FROM
+                                                do_outbound
+                                            WHERE
+                                              outdate >= DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m-01')
+                                                      AND outdate < DATE_FORMAT(CURDATE(), '%Y-%m-01');
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+       
+                # Close the connection
+                connection.close()
+
+                # Return the fetched data
+                return int(result[0][0])
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
+
+
+
 # Total and Total profit
 def cost_profit():
     connection = connect_to_db()

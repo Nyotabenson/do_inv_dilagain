@@ -117,18 +117,37 @@ with col3:
     st.markdown(f"(x) :blue[**90KGS Sucks**] :  {do_pm_balance['b_kg_90_suck'].values}")
     st.markdown(f"(xi)  :blue[**50KGS Sucks**] :  {do_pm_balance['b_kg_50_suck'].values}")
 
+with st.expander("Finance Reviews:"):
+    passcode1 = st.text_input("Passcode")
+    if passcode1 == '114986bn':
+            months = ['Current-Month', 'Last-Month']
+            month = st.selectbox("Choose the Month you want to View Total Sales for ", months)
+            if month == 'Current-Month':
+                try:
+                    st.write("Total Sales: ", do_datanalysis.Total_sales())
+                except:
+                    st.write("Could not fetch the data at the Moment!")    
+                
+            else:
+                try:
+                    st.write("Total Sales: ", do_datanalysis.last_Month_Total_sales())
+                except:
+                    st.write("Could not fetch the data at the Moment!")    
+                
+
 col11, col22, col33 = st.columns(3)
 with col11:
-    try:
-        if st.checkbox("Total Sales"):
-         passcode1 = st.text_input("Passcode")
-        if passcode1 == '114986bn':
-            st.write("Total Sales: ", do_datanalysis.Total_sales())
+    st.write("Note:  ")
+    st.write('''To maximize in a packaging materials inventory, start by conducting a thorough assessment
+              of your current stock levels and usage patterns. Implement a just-in-time inventory system like this to align 
+             your purchases with comsumption rate, reducing excess stock and storage costs. Regularly review your 
+             supplier agreements to ensure you’re getting the best pricing and consider consolidating orders to reduce much expenses. 
+             Utilize inventory management software like this to track materials in real-time, enables you
+              to anticipate shortages and avoid over-ordering. Finally, explore sustainable packaging options that
+              can reduce costs and improve packaging standards, further enhancing your financial performance.
 
-        elif passcode1 != '114986bn':
-            st.markdown(":red[**Input Valid Passcode**]")
-    except:
-        print("Calculation not done!")
+
+                                 ''')
 
 with col22:
     do_visualization.cost_profit_vis()

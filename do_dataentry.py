@@ -115,7 +115,7 @@ def inbound_entry():
             in_PB_M = st.number_input("Plastic Bags (Medium)", min_value=0, step=1, key='in_PB_M')
             in_KG90 = st.number_input("90KGS Suck", min_value=0, step=1, key='in_KG90')
             in_KG50 = st.number_input("50KGS Suck", min_value=0, step=1, key='in_KG50')            
-            submitted1 = st.form_submit_button("Save Outbound")
+            submitted1 = st.form_submit_button("Save Inbound")
             # Example for saving inbound data
             if submitted1:
                 in_entry = {
@@ -149,9 +149,9 @@ def ounbound_entry():
             KG50 = st.number_input("50KGS Suck", min_value=0, step=1, key='KG50')
             ODRS = st.number_input("Orders", min_value=0, step=1, key='odrs')
             submitted2 = st.form_submit_button("Save Outbound")
-            # Example for saving outbound data
+            
 
-            #price calculation:
+            
             
 
             if submitted2:

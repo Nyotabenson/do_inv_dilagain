@@ -187,7 +187,43 @@ FROM
         AND YEAR(DATE) = YEAR(CURDATE());
     
 
- delete from do_outbound
- where Orders = 222;
+ delete from sale_table
+ where Orders = 888;
  
 drop table exp;
+
+ SELECT 
+                                                SUM(clear_tapes) * (SELECT 
+                                                        clear_tapes
+                                                    FROM
+                                                        selling_price) + SUM(branded_tapes) * (SELECT 
+                                                        branded_tapes
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_small) * (SELECT 
+                                                        plastic_bags_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_small) * (SELECT 
+                                                        carton_boxes_small
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_medium) * (SELECT 
+                                                        carton_boxes_medium
+                                                    FROM
+                                                        selling_price) + SUM(carton_boxes_large) * (SELECT 
+                                                        carton_boxes_large
+                                                    FROM
+                                                        selling_price) + SUM(plastic_bags_medium) * (SELECT 
+                                                        plastic_bags_medium
+                                                    FROM
+                                                        selling_price) + SUM(kg_90_suck) * (SELECT 
+                                                        kg_90_suck
+                                                    FROM
+                                                        selling_price) + SUM(kg_50_suck) * (SELECT 
+                                                        kg_50_suck
+                                                    FROM
+                                                        selling_price) AS total_sale
+                                            FROM
+                                                do_outbound
+                                               WHERE
+    outdate >= DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m-01')
+    AND outdate < DATE_FORMAT(CURDATE(), '%Y-%m-01')
+;
