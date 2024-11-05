@@ -158,7 +158,9 @@ try:
 except:
     st.error("Sorry we could not fetch the Visual at the moment")        
 
-
+with col33:
+    st.subheader("Material Used Current Month")
+    st.table(do_datanalysis.material_used_current_month())
 
 # st.write("##")    
 st.image("photos/footer.png", use_column_width=True)

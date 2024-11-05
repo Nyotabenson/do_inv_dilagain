@@ -382,3 +382,59 @@ def cost_profit():
             return None
     else:
         print("no connection")
+
+
+
+# Total Materials used in the current month
+def material_used_current_month():
+    connection = connect_to_db()
+    if connection is not None:
+        try:
+            with connection.cursor() as cursor:
+                # SQL query to select all data from the "inbound" table
+                query = """
+              
+                   SELECT
+                                    sum(o.g_printers)  as used_g_printers,
+                                    sum(o.clear_tapes)  as used_clear_tapes,
+                                    sum(o.branded_tapes)   as used_branded_tapes,
+                                    sum(o.plastic_bags_small)  as used_plastic_bags_small,
+                                    sum(o.carton_boxes_small)   as used_carton_boxes_small,
+                                    sum(o.carton_boxes_medium)  as used_carton_boxes_medium,
+                                    sum(o.carton_boxes_large)  as used_carton_boxes_large,
+                                    sum(o.plastic_bags_medium)   as used_plastic_bags_medium,
+                                    sum(o.kg_90_suck)   as used_kg_90_suck,
+                                    sum(o.kg_50_suck) as used_kg_50_suck
+                                    FROM 
+                                        do_outbound o
+                                         WHERE
+    MONTH(outdate) = MONTH(CURDATE())
+        AND YEAR(outdate) = YEAR(CURDATE());
+ 
+
+                                                     """
+                cursor.execute(query)
+                
+                # Fetch all the rows from the query result
+                result = cursor.fetchall()
+
+                column_names = [desc[0] for desc in cursor.description]
+
+                # Combine column names with the data
+                data_with_columns = [dict(zip(column_names, row)) for row in result]
+                                
+                # Close the connection
+                connection.close()
+                
+                df = (pd.DataFrame(data_with_columns)).T
+                df.index.name = "Material Identifier"
+                column_names_m = ["Total Used"]
+                df.columns = column_names_m
+
+                # Return the fetched data
+                return df
+        except Exception as e:
+            st.error(f"Error in getting total data: {e}")
+            return None
+    else:
+        print("no connection")
