@@ -44,8 +44,8 @@ def load_css(file_name):
 load_css("style.css")
 
 #######TITLE####################
-st.image("photos/header.png", use_column_width=True)
-st.image("photos/about.png", use_column_width=True)
+st.image("photos/header.png", use_container_width=True)
+st.image("photos/about.png", use_container_width=True)
 st.write("---")
 ####################### DATA ENTRY ###################
 
@@ -57,8 +57,8 @@ do_dataentry.inbound_entry()
 do_dataentry.ounbound_entry()
 
 #sidebar images
-st.sidebar.image("photos/side1.png", use_column_width=True)
-st.sidebar.image("photos/side2.png", use_column_width=True)
+st.sidebar.image("photos/side1.png", use_container_width=True)
+st.sidebar.image("photos/side2.png", use_container_width=True)
 # Data Visualization
 v_col1, v_col2 = st.columns(2)
 try:
@@ -77,16 +77,16 @@ except:
 
 
 ######### Display the inbound & outbound ##############
-st.image("photos/outbound.png", use_column_width=True)
+st.image("photos/outbound.png", use_container_width=True)
 do_datafetch.display_outbound_data()
 
-st.image("photos/inbound.png", use_column_width=True)
+st.image("photos/inbound.png", use_container_width=True)
 do_datafetch.display_inbound_data()
 
  
 # Display the remaining materials
 st.write("##")
-st.image("photos/balance.png", use_column_width=True)
+st.image("photos/balance.png", use_container_width=True)
 st.subheader("Available Packaging Materials:")
 
 do_pm_balance = do_datanalysis.display_balance_data()
@@ -104,7 +104,7 @@ with col1:
     st.markdown(f"(vi)  :red[**Cartons Medium-size**] :  {do_pm_balance['b_carton_boxes_medium'].values}")
 
 with col2:
-    st.image("photos/centre.png", use_column_width=True)
+    st.image("photos/centre.png", use_container_width=True)
 
 
 with col3:
@@ -163,6 +163,6 @@ with col33:
     st.table(do_datanalysis.material_used_current_month())
 
 # st.write("##")    
-st.image("photos/footer.png", use_column_width=True)
+st.image("photos/footer.png", use_container_width=True)
 
 

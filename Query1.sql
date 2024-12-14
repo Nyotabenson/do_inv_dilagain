@@ -5,8 +5,11 @@ select * from do_outbound;
 
 # updating a value
 update do_outbound
-set Orders = 291
-where plastic_bags_small = 130 ;
+set Orders = 488
+where outdate = '2024-11-21';
+
+DELETE FROM do_outbound
+where outdate = '2024-11-21';
 
 #Fetching daily orders
 SELECT 
@@ -227,3 +230,23 @@ drop table exp;
     outdate >= DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m-01')
     AND outdate < DATE_FORMAT(CURDATE(), '%Y-%m-01')
 ;
+
+SELECT
+                                    sum(o.g_printers)  as used_g_printers,
+                                    sum(o.clear_tapes)  as used_clear_tapes,
+                                    sum(o.branded_tapes)   as used_branded_tapes,
+                                    sum(o.plastic_bags_small)  as used_plastic_bags_small,
+                                    sum(o.carton_boxes_small)   as used_carton_boxes_small,
+                                    sum(o.carton_boxes_medium)  as used_carton_boxes_medium,
+                                    sum(o.carton_boxes_large)  as used_carton_boxes_large,
+                                    sum(o.plastic_bags_medium)   as used_plastic_bags_medium,
+                                    sum(o.kg_90_suck)   as used_kg_90_suck,
+                                    sum(o.kg_50_suck) as used_kg_50_suck
+                                    FROM 
+                                        do_outbound o
+                                         WHERE
+    MONTH(outdate) = MONTH(CURDATE())
+        AND YEAR(outdate) = YEAR(CURDATE());
+        
+select * from do_outbound;
+                                        
