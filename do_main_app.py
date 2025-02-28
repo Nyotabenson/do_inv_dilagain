@@ -2,6 +2,7 @@
 import pymysql
 import streamlit as st
 import pandas as pd
+import time 
 
 # Importing the accompanying Modules
 import do_datafetch
@@ -34,6 +35,16 @@ def connect_to_db():
     
 #setting
 st.set_page_config(layout="wide")
+
+def keep_awake():
+    while True:
+        time.sleep(600)  # 10 minutes
+        st.experimental_rerun()  # Refreshes the app
+
+# Run in a background thread
+import threading
+threading.Thread(target=keep_awake, daemon=True).start()
+
 
 # style css
 def load_css(file_name):

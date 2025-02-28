@@ -5,8 +5,14 @@ select * from do_outbound;
 
 # updating a value
 update do_outbound
-set Orders = 488
-where outdate = '2024-11-21';
+set Orders = 418
+where outdate = '2024-12-07';
+
+# updating a value
+update do_outbound
+set kg_50_suck = 0
+where outdate = '2024-12-07';
+
 
 DELETE FROM do_outbound
 where outdate = '2024-11-21';
